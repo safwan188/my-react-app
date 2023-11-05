@@ -1,0 +1,41 @@
+/* Updated Header.css */
+.header {
+  width: 100%;
+  display: flex;
+  
+  background-color: #17284E;
+  color: #ffffff;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Increased shadow for more depth */
+  position: relative;
+  z-index: 10;
+  height: 5vh;
+  width: 83vw;
+  left: 0px;
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.header:hover {
+  background-color: #1e3a5f; /* Slightly lighter on hover for interaction feedback */
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2.5rem; /* Increased size for more prominence */
+  font-weight: 700; /* Bolder for more impact */
+  text-transform: uppercase;
+  letter-spacing: 1.5px; /* More spacing for a refined look */
+  transition: transform 0.3s; /* Smooth transition for hover effect */
+}
+
+.header h1:hover {
+  transform: scale(1.05); /* Slight scale for interactive feedback */
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

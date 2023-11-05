@@ -1,0 +1,44 @@
+/* src/components/DataTable.css */
+.data-table-container {
+    overflow-x: auto; /* Allows table to scroll on small screens */
+  }
+  
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto; /* Allows table to be responsive */
+  }
+  
+  .data-table th,
+  .data-table td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .data-table thead {
+    background-color: #f2f2f2;
+  }
+  
+  .data-table-empty {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+  }
+  /* Inside DataTable.css */
+
+/* Add this to your EquipmentDataTable.css */
+.add-equipment-button {
+    margin: 10px;
+    padding: 10px 15px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .add-equipment-button:hover {
+    background-color: #218838;
+  }
+  
