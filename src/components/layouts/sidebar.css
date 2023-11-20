@@ -1,17 +1,18 @@
 /* Sidebar.css */
 .sidebar {
-    position: fixed; /* Fixed position to stay in place during scroll */
-    top: 0; /* Starts at the top of the viewport */
-    right: 0; /* Aligns the sidebar to the right edge of the layout */
-    width: 10vw; /* Adjust the width as needed */
-    height: 100vh; /* Full height of the viewport */
-    padding: 0px;
+      flex-direction: row;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* Shadow  on the left side */
-    background: linear-gradient(to bottom, #1e3a5f 0%, #17284E 100%); /* Gradient background */
-    color: #ffffff; /* Light text color for contrast */
-    overflow-y: auto; /* Enables scrolling if the content is too long */
+    background-color: rgba(00, 3A, 7B, 0.776);
+   
+ 
+     width: 10vh;
+     height: 100vh;
+     min-width: 8vw;
+      position: relative;
+     right: 0px;
+     top: 0px;
+     bottom: 0px;
     z-index: 1000; /* Ensures the sidebar is above other content */
-    margin-left: 10px; /* Ensures there is space between the sidebar and the adjacent component */
   }
   /* Additional styles to ensure the sidebar doesn't overlap with the table */
   @media (min-width: 768px) {
@@ -36,13 +37,13 @@
   }
   /* Add to existing styles in Sidebar.css */
 .sidebar-nav {
-  
+
   list-style: none; /* Removes default list styling */
   padding: 0; /* Removes default padding */
   margin-top: 20vh; /* Adjust this value to center the sidebar */
   display: flex; /* Aligns items vertically */
   flex-direction: column; /* Stack items vertically */
-  height: 100%; /* Full height to distribute items evenly */
+  height: 100%vh; /* Full height to distribute items evenly */
   justify-content: center; /* Centers items vertically */
 }
 
@@ -52,7 +53,8 @@
 }
 
 .nav-item a {
-  color: inherit; /* Inherit text color from parent */
+ 
+  color: white; /* Inherit text color from parent */
   text-decoration: none; /* Removes underline from links */
   display: block; /* Block-level links for easier clicking */
   padding: 10px 0; /* Adds padding to each link for spacing */
@@ -63,6 +65,7 @@
   background-color: rgba(255, 255, 255, 0.1); /* Slight background on hover for feedback */
 }
 .logo-container {
+  top: 0px;
   display: flex;
   justify-content: center; /* Centers logo horizontally */
   margin-bottom: 2rem; /* Space between logo and form */

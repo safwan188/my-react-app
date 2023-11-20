@@ -9,6 +9,20 @@ const API_URL = 'http://localhost:5000/api/property';
 const axiosInstance = axios.create({
   baseURL: API_URL
 });
+// Add a request interceptor
+axiosInstance.interceptors.request.use((config) => {
+  // Get token from localStorage
+  const token = localStorage.getItem('token');
+  console.log(token);
+  // If the token exists, add it to the headers
+  if (token) {
+    config.headers['Authorization'] = `Bearer `+ token;
+  }
+
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
 
 const createProperty = (propertyData) => {
   return axiosInstance.post('/', propertyData);

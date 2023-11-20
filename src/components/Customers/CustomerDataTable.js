@@ -1,59 +1,73 @@
 // src/components/CustomerDataTable.js
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import './CustomerDataTable.css'; // Ensure this CSS file is styled appropriately
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import ApiCustomers from '../../api/ApiCustomers'; // Adjust the path as necessary
+import GenericTable from '../base/GenericTable';
+import SelectInput from '../base/SelectInput'; // Import your SelectInput component
 
-const CustomerDataTable = ({ data }) => {
+const CustomerDataTable = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [customers, setCustomers] = useState([]);
 
-  const handleAddCustomerClick = () => {
-    navigate('/customerform'); // Navigate to customer form
+  const fetchCustomers = async () => {
+    try {
+      const response = await ApiCustomers.getAllCustomers();
+      setCustomers(response.data);
+    } catch (error) {
+      console.error("There was an error fetching the customers!", error);
+    }
   };
 
-  // Predefined list of strings for the dropdown
-  const dropdownOptions = ["Option 1", "Option 2", "Option 3", "Option 4"];
+  useEffect(() => {
+    fetchCustomers();
+  }, [location]);
 
-  if (!data || data.length === 0) {
-    return <div className="data-table-empty">No customers available.</div>;
-  }
 
-  // Define the columns for the Customer data, removed 'id' for simplicity
-  const columns = ['name', 'phone', 'options'];
+
+
+  const columns = ['properties', 'phone', 'name', 'tz'];
+  const columnDisplayNames = {
+    name: 'שם',
+    phone: 'טלפון',
+    properties: 'נכסים',
+    tz: 'ת.ז\\ח.פ'
+  };
+
+  const handleAddCustomerClick = () => {
+    navigate('/customerform');
+  };
+
+  // Custom cell rendering function for customers
+  const renderCustomerCell = (customer, column) => {
+    if (column === 'properties') {
+      const propertyOptions = customer.properties.map(property => ({
+        value: property._id,
+        label: `${property.street} ${property.propertyNumber}, ${property.cityName}`
+      }));
+      return (
+        <SelectInput 
+          options={propertyOptions}
+          onChange={(selectedOption) => console.log("Selected:", selectedOption)}
+          placeholder="בחר נכס"
+        />
+      );
+    }
+    return customer[column];
+  };
 
   return (
-    <div className="data-table-container">
-      <button onClick={handleAddCustomerClick} className="add-customer-button">
-        Add Customer
-      </button>
-      <table className="data-table">
-        <thead>
-          <tr>
-            {columns.map((header) => (
-              <th key={header}>
-                {header.charAt(0).toUpperCase() + header.slice(1)}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((customer, index) => (
-            <tr key={index}>
-              <td>{customer.name}</td>
-              <td>{customer.phone}</td>
-              <td>
-                {/* Render dropdown for each customer */}
-                <select name="options" defaultValue="">
-                  <option value="" disabled>Select an option</option>
-                  {dropdownOptions.map((option, idx) => (
-                    <option key={idx} value={option}>{option}</option>
-                  ))}
-                </select>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+     
+
+      <GenericTable
+        title="טבלת לקוחות"
+        buttonText="  &#43; לקוח חדש " 
+        onButtonClick={handleAddCustomerClick}
+        data={customers}
+        columns={columns}
+        columnDisplayNames={columnDisplayNames}
+        renderCell={renderCustomerCell}
+      />
   );
 };
 

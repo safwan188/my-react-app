@@ -1,28 +1,33 @@
 .login-card1 {
-  width: 320px; /* Fixed width for the card */
-  height: 100vh; /* Full viewport height */
+  width: 20vw; /* Fixed width for the card */
+  height: auto; /* Full viewport height */
   padding: 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 0px; /* Removed border-radius for full height attachment to the screen */
-  background: linear-gradient(272deg, rgba(12, 41, 58, 0.50) 88.98%, rgba(12, 41, 58, 0.00) 244.19%);  display: flex;
+  background: white;
   flex-direction: column;
   justify-content: center;
   position: fixed; /* Keeps the card attached to the right */
   display: flex;
   justify-content: center; /* This will center .login-content vertically */
   align-items: center; /* Center horizontally if needed */
-  flex-direction: column;
-  top: 0px;
-  right: 0px;
+  flex-direction: row;
+  margin-left: 40vw;
+ margin-right: 40vw;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  background-color: rgba(255, 255, 255, 0.7); /* Transparent background */
+  transition: margin-left 0.3s; /* Smooth transition for the left margin */
 }
 .login-content {
   /* Adjust the width as needed to control the form's width */
-  width: 100%;
-  max-width: 320px; /* example if you want to keep the 320px width */
+  width: auto;
   /* Add some padding to .login-content if necessary */
-  padding: 1rem;
+  padding: 2rem;
   /* This margin-top pushes the entire .login-content up */
   margin-top: -100px; /* Adjust this value to move up */
+  align-items: center; /* Center horizontally if needed */
+
 }
 .login-card1:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* More pronounced shadow on hover for depth */
@@ -30,26 +35,30 @@
 
 .form-group1 {
   width: 100%;
+ 
   margin-bottom: 1rem;
 }
 
 .form-group1 label {
+ 
   text-align: right;
   display: block;
   margin-bottom: 0.5rem;
   font-size: 1rem;
-  color: #060606;
+  color: #ffffff;
   transition: color 0.3s; /* Smooth transition for color change */
 }
 
 .form-group1 input {
-  width: 100%;
+
+  width: 90%;
+  text-align: right;
   padding: 0.75rem;
+  font-size: 1rem;
   border: 1px solid #ced4da;
   border-radius: 4px;
-  font-size: 1rem;
-  background-color: rgba(255, 255, 255, 0.5); /* Matched with card background for consistency */
-  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transitions for focus effects */
+  transition: border-color 0.3s; /* Smooth transition for border color change */
+  margin-left: auto;
 }
 
 .form-group1 input:focus {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './LoginCard.css'; // Make sure this path is correct
 import { useNavigate } from 'react-router-dom';
-
+import ApiUsers from '../../api/ApiUsers';
 
 const LoginCard = () => {
   
@@ -9,9 +9,13 @@ const LoginCard = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Login submitted:', { username, password });
+    const response = await ApiUsers.LoginUser(username, password);
+    const token = response.data.token;
+    console.log(response.data.token);
+    localStorage.setItem('token', token);
+    
     navigate('/reports');
   };
 
@@ -25,7 +29,7 @@ const LoginCard = () => {
       <form onSubmit={handleSubmit}>
         {/* Form fields */}
         <div className="form-group1">
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="username">שם משתמש</label>
           <input
             type="text"
             id="username"
@@ -36,7 +40,7 @@ const LoginCard = () => {
           />
         </div>
         <div className="form-group1">
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">סיסמה</label>
           <input
             type="password"
             id="password"

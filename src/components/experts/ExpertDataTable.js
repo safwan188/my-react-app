@@ -1,47 +1,53 @@
 // src/components/ExpertDataTable.js
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import './ExpertDataTable.css'; // Ensure this CSS file exists and has the necessary styles
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import ApiExperts from '../../api/ApiExperts';
+import GenericTable from '../base/GenericTable';
 
-const ExpertDataTable = ({ data }) => {
+const ExpertDataTable = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [expertsData, setExperts] = useState([]);
 
-  // If no data is provided, display a message
-  if (!data || data.length === 0) {
-    return <div className="data-table-empty">No experts available.</div>;
-  }
-
+  useEffect(() => {
+    ApiExperts.getAllExperts()
+      .then(response => {
+        setExperts(response.data);
+      })
+      .catch(error => {
+        console.error("There was an error fetching the experts!", error);
+      });
+  }, [location]);
   // Define the columns for the Expert data
-  const columns = ['name', 'experience'];
+  const columns = ['phone', 'tz', 'name'];
+  const columnDisplayNames = {
+    name: 'שם',
+    tz: 'תעודת זהות',
+    phone: 'טלפון',
+  };
 
   // Handle navigation to the expert form
   const navigateToExpertForm = () => {
     navigate('/expertsform');
   };
 
+  // Custom cell rendering function for experts
+  const renderExpertCell = (expert, column) => {
+    return expert[column];
+  };
+
   return (
-    <div className="data-table-container">
-      <button onClick={navigateToExpertForm} className="add-expert-button">
-        Add Expert
-      </button>
-      <table className="data-table">
-        <thead>
-          <tr>
-            {columns.map((header) => (
-              <th key={header}>{header.charAt(0).toUpperCase() + header.slice(1)}</th> // Capitalize the headers
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((expert, index) => (
-            <tr key={index}>
-              <td>{expert.name}</td>
-              <td>{expert.experience}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+   
+
+      <GenericTable
+        title={'טבלת קבלנים'}
+        buttonText={'הוסף קבלן'}
+        onButtonClick={navigateToExpertForm}
+        data={expertsData}
+        columns={columns}
+        columnDisplayNames={columnDisplayNames}
+        renderCell={renderExpertCell}
+      />
   );
 };
 
