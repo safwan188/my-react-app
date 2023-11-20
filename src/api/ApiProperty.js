@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 // Set the base URL for all Axios requests for properties
-const API_URL = 'http://localhost:5000/api/property';
+const API_URL = 'https://shark-server-9cc777312ecd.herokuapp.com/api/property';
 
 // Create an instance of axios with the base URL
 const axiosInstance = axios.create({

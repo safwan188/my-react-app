@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/reports'; // Adjust to match your Express server's port and route
+const API_URL = 'https://shark-server-9cc777312ecd.herokuapp.com/api/reports'; // Adjust to match your Express server's port and route
 
 // Create an axios instance
 const api = axios.create({
