@@ -29,7 +29,7 @@ const ReportDetails = () => {
   }
   const downloadPdf = async () => {
     try {
-      const token = localStorage.getItem('jwt'); // Assuming the JWT token is stored in localStorage
+      const token = localStorage.getItem('token'); // Assuming the JWT token is stored in localStorage
       const response = await axios.get(api+`api/reports/${reportId}/pdf`, {
         responseType: 'blob', // Important: indicates that the response should be treated as a Blob
         headers: {
