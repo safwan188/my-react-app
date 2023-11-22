@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom';
 import './ReportDetails.css';
 import axios from 'axios';
 import DisplayFieldGroup from '../base/DisplayFieldGroup';
+const api=process.env.REACT_APP_API_URL+'/';
+
 const ReportDetails = () => {
   const [reportDetails, setReportDetails] = useState(null);
   const { reportId } = useParams();
@@ -27,7 +29,7 @@ const ReportDetails = () => {
   }
   const downloadPdf = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/reports/${reportId}/pdf`, {
+      const response = await axios.get(api+`api/reports/${reportId}/pdf`, {
         responseType: 'blob', // Important: indicates that the response should be treated as a Blob
       });
 
@@ -101,22 +103,36 @@ const ReportDetails = () => {
   
         <div className="reportdetail-item-findings">
           <div className="reportdetail-item">
-          <label>ממצאים</label>
-          <ul>
-            {reportDetails.findings.map((finding, index) => (
-              <li key={index}>{finding}</li>
-            ))}
-          </ul>
+          {reportDetails.findings && (
+            <div>
+              <label>ממצאים</label>
+              <ul>
+                {reportDetails.findings.map((finding, index) => (
+                  <li key={index}>{finding}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+        </div>
+
+        <div className="reportdetail-item findings-photos">
+          <label>לקוח תמונות</label>
+        <div className="photos-container">
+            {reportDetails.clientPhotos.map((photoSrc, index) => (
+                <img key={index} src={api+`${photoSrc.replace(/\\/g, '/')}`} alt={`Finding ${index + 1}`} />            ))}
         </div>
         </div>
         <div className="reportdetail-item findings-photos">
           <label> תמונות</label>
         <div className="photos-container">
             {reportDetails.findingsPhotos.map((photoSrc, index) => (
-                <img key={index} src={`http://localhost:5000/${photoSrc.replace(/\\/g, '/')}`} alt={`Finding ${index + 1}`} />            ))}
+                <img key={index} src={api+`${photoSrc.replace(/\\/g, '/')}`} alt={`Finding ${index + 1}`} />            ))}
         </div>
         </div>
       </div>
+    
+
       <div className="download-button-container">
         <button className="btn btn-download" onClick={downloadPdf}>הורד כ PDF</button>
       </div>
