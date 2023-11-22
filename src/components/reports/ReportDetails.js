@@ -117,7 +117,7 @@ const ReportDetails = () => {
         </div>
 
         <div className="reportdetail-item findings-photos">
-          <label>לקוח תמונות</label>
+          <label> תמונות  לקוח</label>
         <div className="photos-container">
             {reportDetails.clientPhotos.map((photoSrc, index) => (
                 <img key={index} src={api+`${photoSrc.replace(/\\/g, '/')}`} alt={`Finding ${index + 1}`} />            ))}
