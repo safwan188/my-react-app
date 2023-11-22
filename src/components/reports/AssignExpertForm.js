@@ -12,7 +12,7 @@ const AssignExpertForm = () => {
   const [selectedExpert, setSelectedExpert] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
   const navigate = useNavigate();
-  const imageUrlBase=process.env.REACT_APP_API_URL;
+  const imageUrlBase=process.env.REACT_APP_API_URL+'/';
   const { reportId } = useParams();
   const expertOptions = experts.map(expert => ({
     value: expert._id,
