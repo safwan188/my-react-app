@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-const API_URL = 'https://shark-server-9cc777312ecd.herokuapp.com/api/experts'; // Adjust to match your Express server's port and route
+const API_URL = 'http://localhost:5000/api/experts'; // Adjust to match your Express server's port and route
 const axiosInstance = axios.create({
   baseURL: API_URL,
   headers: {
@@ -34,13 +34,8 @@ const getExpertById = (id) => {
   return axiosInstance.get(`${API_URL}/${id}`);
 };
 
-const updateExpert = (id, updateData) => {
-  return axiosInstance.put(`${API_URL}/${id}`, updateData);
-};
 
-const deleteExpert = (id) => {
-  return axiosInstance.delete(`${API_URL}/${id}`);
-};
+
 
 // Additional function to get reports for a specific expert
 const getExpertReports = (expertId) => {
@@ -51,7 +46,6 @@ export default {
   createExpert,
   getAllExperts,
   getExpertById,
-  updateExpert,
-  deleteExpert,
+ 
   getExpertReports
 };

@@ -50,7 +50,7 @@ const ReportFormCard = () => {
     if (selectedCustomerId) {
       ApiCustomers.getPropertiesForCustomer(selectedCustomerId)
         .then(response => {
-          setProperties(response.data);
+          setProperties(response.data.properties);
           // Reset the selected property if the customer changes
           setSelectedPropertyId(response.data.length > 0 ? response.data[0].id : '');
         })
@@ -64,7 +64,7 @@ const ReportFormCard = () => {
   const fetchCustomers = () => {
     ApiCustomers.getAllCustomers()
       .then(response => {
-        setCustomers(response.data);
+        setCustomers(response.data.customers);
         // Optionally, select the first customer in the list
         if (response.data.length > 0) {
           setSelectedCustomerId(response.data[0].id);
@@ -79,49 +79,54 @@ const ReportFormCard = () => {
   const [description, setDescription] = useState(''); // State for the description field
   const [subject, setSubject] = useState(''); // State for the subject field
   // Form submission handler
-  const handleSubmit = async(event) => {
-    event.preventDefault();
-    const isDateTimeComplete = dateTimeArray.every(dateTime => dateTime.touched);
+// Form submission handler
+const handleSubmit = async (event) => {
+  event.preventDefault();
+  const isDateTimeComplete = dateTimeArray.every(dateTime => dateTime.touched);
 
-    if (!isDateTimeComplete) {
-      alert('Please confirm or change all date and time fields before submitting the report.');
-      return;
+  if (!isDateTimeComplete) {
+    alert('Please confirm or change all date and time fields before submitting the report.');
+    return;
+  }
+
+  if (!selectedCustomerId || !selectedPropertyId) {
+    alert('Please select both a customer and a property before submitting the report.');
+    return;
+  }
+
+  // Prepare data for the POST request using FormData
+  const formData = new FormData();
+  formData.append('customer', selectedCustomerId);
+  formData.append('property', selectedPropertyId);
+  formData.append('subject', subject);
+  formData.append('description', description);
+
+  dateTimeArray.forEach((dt) => {
+    if (dt.date && dt.time) {
+      // Combine date and time into a single ISO string
+      const dateTimeISO = new Date(dt.date + 'T' + dt.time).toISOString();
+      formData.append('availableStartingDates', dateTimeISO);
     }
+  });
+  
+  // Append photos
+  photos.forEach((photo) => formData.append('customerPhotos', photo));
 
-    if (!selectedCustomerId || !selectedPropertyId) {
-      alert('Please select both a customer and a property before submitting the report.');
-      return;
-    }
-
-    // Prepare data for the POST request using FormData
-    const formData = new FormData();
-    formData.append('customer', selectedCustomerId);
-    formData.append('property', selectedPropertyId);
-    formData.append('subject', subject);
-    formData.append('description', description);
-    formData.append('status', 'open'); // Include the status
-
-    dateTimeArray.forEach(dt => {
-      formData.append('availableStartingDates', new Date(dt.date + ' ' + dt.time).toISOString());
-    });
-
-    // Append photos
-    photos.forEach(photo => formData.append('findingsPhotos', photo));
-
-    try {
-      const response = await ApiReports.createReport(formData); // Ensure API can handle FormData
-      console.log('Report created successfully:', response.data);
-      alert('Form Submitted and response received');
-    } catch (error) {
-      console.error('There was an error submitting the form', error);
-      alert('Failed to submit the form');
-    }
+  try {
+    const response = await ApiReports.createReport(formData); // Ensure API can handle FormData
+    console.log('Report created successfully:', response.data);
+    alert('Form Submitted and response received');
+  } catch (error) {
+    console.error('There was an error submitting the form', error);
+    alert('Failed to submit the form');
+  }
 };
 
-  const customerOptions = customers.map(customer => ({
+
+  const customerOptions = customers.length > 0 ? customers.map(customer => ({
     value: customer._id,
     label: customer.name,
-  }));
+  })) : [];
   
   const propertyOptions = properties.map(property => ({
     value: property._id,

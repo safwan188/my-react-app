@@ -34,17 +34,10 @@ const ExpertRequestDataTable = () => {
   }
   console.log(data);
   console.log(expertRequestId.report);
-  ApiReports.assigExpert(expertRequestId.report._id, data);
+  ApiReports.assigExpertbyrequest(expertRequestId.report._id, data);
 };
 
-// Function to handle the decline action
-const handleSearchChange = (e) => {
-  setSearchQuery(e.target.value.toLowerCase());
-};
 
-const handleColumnChange = (e) => {
-  setSelectedColumn(e.target.value);
-};
 
 const filteredexpertRequests = expertRequests.filter((expertRequest) => {
   let searchValue = '';

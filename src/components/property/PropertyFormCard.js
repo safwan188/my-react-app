@@ -15,7 +15,7 @@ const PropertyFormCard = () => {
   useEffect(() => {
     ApiCustomers.getAllCustomers()
       .then((response) => {
-        setCustomers(response.data);
+        setCustomers(response.data.customers);
         // Optionally set the first customer as selected by default
         if (response.data.length > 0) {
           setSelectedCustomerId(response.data[0]._id);
@@ -36,10 +36,12 @@ const PropertyFormCard = () => {
     };
     ApiProperty.createProperty(newProperty)
       .then((response) => {
+        alert('נכס נוסף בהצלחה');
         console.log('Property created:', response);
         // Additional logic after property creation
       })
       .catch((error) => {
+        alert('התרחשה שגיאה בהוספת הנכס');
         console.error("Error creating property:", error);
       });
   };
@@ -56,7 +58,11 @@ const PropertyFormCard = () => {
               value: customer._id,
               label: customer.name
             }))}
-            onChange={(e) => setSelectedCustomerId(e.target.value)}
+            onChange={(e) => {
+              console.log(e); // Check the structure of the event object
+              setSelectedCustomerId(e.value);
+            }}
+            
           />
         </div>
         <FormGroup

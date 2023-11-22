@@ -1,9 +1,9 @@
-// src/components/CustomerFormCard.js
 import React, { useState } from 'react';
-import './CustomerFormCard.css'; // This should be your CSS file for the CustomerFormCard component
-import ApiCustomers from '../../api/ApiCustomers'; // Import your API service
+import './CustomerFormCard.css';
+import ApiCustomers from '../../api/ApiCustomers';
 import FormGroup from '../base/FormGroup';
-import DynamicInputFieldGroup from '../base/DynamicInputFieldGroup';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+
 const CustomerFormCard = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -12,35 +12,56 @@ const CustomerFormCard = () => {
   const [cityName, setCityName] = useState('');
   const [street, setStreet] = useState('');
   const [propertyNumber, setPropertyNumber] = useState('');
+  const navigate = useNavigate(); // Create navigate instance
+  const isHebrew = text => /^[\u0590-\u05FF0-9 ]+$/.test(text);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!isHebrew(name) || (addressInfoChecked && (!isHebrew(cityName) || !isHebrew(street)))) {
+      alert('אנא הזן טקסט בעברית בשדות הלא מספריים');
+      return;
+    }
+
+    if (addressInfoChecked && (!cityName.trim() || !street.trim() || !propertyNumber.trim())) {
+      alert('אנא מלא את כל שדות הכתובת');
+      return;
+    }
+
     const customerData = { 
       name,
       phone,
       tz,
       ...(addressInfoChecked && { cityName, street, propertyNumber })
     };
-    console.log('Customer Form submitted with:', customerData);
+
     try {
+      if (addressInfoChecked){
+        await ApiCustomers.createCustomerAndProperty(customerData);
+      }
+      else{
       await ApiCustomers.createCustomer(customerData);
+      }
+      alert('לקוח נוסף בהצלחה');
+      navigate('/customers'); // Or your desired route
     } catch (error) {
       console.error('There was an error submitting the form', error);
+      alert('התרחשה שגיאה בהוספת הלקוח');
     }
   };
 
   return (
     <div className="form-card">
       <form onSubmit={handleSubmit} className="form-card-content">
-      <h2 className="form-title">לקוח חדש</h2> {/* Add this line for the title */}
+        <h2 className="form-title">לקוח חדש</h2>
 
-          <FormGroup
+        <FormGroup
           label="שם"
           inputType="text"
           id="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          required={true} // Now you can pass the 'required' attribute
+          required
         />
 
         <FormGroup
@@ -49,8 +70,7 @@ const CustomerFormCard = () => {
           id="phone"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          required={true} // Adding 'required' for phone number as well
-          pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$" // Adding the 'pattern' attribute for phone number validation
+          required
         />
 
         <FormGroup
@@ -59,11 +79,8 @@ const CustomerFormCard = () => {
           id="tz"
           value={tz}
           onChange={(e) => setTz(e.target.value)}
-          // Assuming 'required' or 'pattern' is not needed for 'tz'
         />
 
-
-        {/* Checkbox for Address Information */}
         <div className="form-group">
           <label htmlFor="addressInfo">הוסף נכס ללקוח</label>
           <input
@@ -74,8 +91,7 @@ const CustomerFormCard = () => {
           />
         </div>
 
-       {/* Conditional Rendering for Address Fields */}
-      {addressInfoChecked && (
+        {addressInfoChecked && (
           <>
             <FormGroup
               label="עיר"
@@ -83,6 +99,7 @@ const CustomerFormCard = () => {
               id="cityName"
               value={cityName}
               onChange={(e) => setCityName(e.target.value)}
+              required
             />
             <FormGroup
               label="כביש"
@@ -90,6 +107,7 @@ const CustomerFormCard = () => {
               id="street"
               value={street}
               onChange={(e) => setStreet(e.target.value)}
+              required
             />
             <FormGroup
               label="מספר נכס"
@@ -97,6 +115,7 @@ const CustomerFormCard = () => {
               id="propertyNumber"
               value={propertyNumber}
               onChange={(e) => setPropertyNumber(e.target.value)}
+              required
             />
           </>
         )}
