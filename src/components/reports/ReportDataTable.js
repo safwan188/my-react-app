@@ -9,9 +9,9 @@ const ReportDataTable = () => {
   const [reportsData, setReports] = useState([]);
   useEffect(() => {
     ApiReports.getAllReports()
-      .then(response => { 
-
-        setReports(response.data);
+      .then(response => {
+        const formattedReports = response.data.map(report => getFormattedData(report));
+        setReports(formattedReports); // Set state with formatted reports
       })
       .catch(error => {
         console.error("There was an error fetching the reports!", error);
@@ -68,13 +68,11 @@ const ReportDataTable = () => {
     description: 'פירוט',
     index: 'מספר דוח',
   };
-
-  const renderCell = (report, column) => {
-    const formattedReport = getFormattedData(report);
+  const renderCell = (formattedReport, column) => {
     if (column === 'actions') {
       return getStatusButton(formattedReport.status, formattedReport.id);
     }
-    return formattedReport && formattedReport.hasOwnProperty(column) ? formattedReport[column] : '';
+    return formattedReport[column] || ''; // Directly access the column data
   };
   
 

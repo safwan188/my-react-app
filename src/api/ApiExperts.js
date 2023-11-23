@@ -46,6 +46,5 @@ export default {
   createExpert,
   getAllExperts,
   getExpertById,
- 
   getExpertReports
 };

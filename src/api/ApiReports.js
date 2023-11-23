@@ -41,10 +41,6 @@ const getReportById = (id) => {
   return api.get(`${API_URL}/${id}`);
 };
 
-const updateReport = (id, updateData) => {
-  return api.put(`${API_URL}/${id}`, updateData);
-};
-
 const assigExpert = (id,data) => {
     return api.put(`${API_URL}/updatestatus/${id}`,data);
 };
@@ -52,7 +48,7 @@ export default {
   createReport,
   getAllReports,
   getReportById,
-  updateReport,
+
   assigExpert
 
 };

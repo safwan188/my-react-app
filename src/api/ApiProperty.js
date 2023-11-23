@@ -32,22 +32,12 @@ const getAllProperties = () => {
   return axiosInstance.get('');
 };
 
-const getPropertyById = (id) => {
-  return axiosInstance.get(`/${id}`);
-};
 
-const updateProperty = (id, updateData) => {
-  return axiosInstance.put(`/${id}`, updateData);
-};
 
-const deleteProperty = (id) => {
-  return axiosInstance.delete(`/${id}`);
-};
+
 
 export default {
   createProperty,
   getAllProperties,
-  getPropertyById,
-  updateProperty,
-  deleteProperty
+  
 };

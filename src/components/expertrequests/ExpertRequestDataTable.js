@@ -17,7 +17,7 @@ const ExpertRequestDataTable = () => {
     const fetchExpertRequests = async () => {
       try {
         const response = await apiExpertRequests.getAllExpertRequests();
-        setExpertRequests(response.data.filter(expertRequest => expertRequest.report.status === 'pending'));
+        setExpertRequests(response.data.filter(expertRequest => expertRequest.report.status === 'open'));
       } catch (error) {
         console.error('There was an error fetching the expert requests:', error);
       }
@@ -34,7 +34,7 @@ const ExpertRequestDataTable = () => {
   }
   console.log(data);
   console.log(expertRequestId.report);
-  ApiReports.assigExpertbyrequest(expertRequestId.report._id, data);
+  ApiReports.assigExpert(expertRequestId.report._id, data);
 };
 
 
