@@ -131,7 +131,7 @@ const ReportDetails = () => {
           <label> תמונות</label>
         <div className="photos-container">
             {reportDetails.findingsPhotos.map((photoSrc, index) => (
-                <img key={index} src={'./'+`${photoSrc.replace(/\\/g, '/')}`} alt={`Finding ${index + 1}`} />            ))}
+                <img key={index} src={api+`${photoSrc.replace(/\\/g, '/')}`} alt={`Finding ${index + 1}`} />            ))}
         </div>
         </div>
       </div>
