@@ -1,5 +1,6 @@
 import React, { useState ,useEffect} from 'react';
 import './ReportFormCard.css'; // Ensure this CSS file contains styles for your form
+import { useNavigate ,useLocation} from 'react-router-dom';
 
 import ApiCustomers from '../../api/ApiCustomers'; // Import your API service
 import ApiReports from '../../api/ApiReports';
@@ -12,11 +13,11 @@ const ReportFormCard = () => {
   const [properties, setProperties] = useState([]);
   const [selectedCustomerId, setSelectedCustomerId] = useState('');
   const [selectedPropertyId, setSelectedPropertyId] = useState('');
-
+  const navigate = useNavigate();
   const [photos, setPhotos] = useState([]); // State for storing uploaded photos
 
 
-
+  
   const [dateTimeArray, setDateTimeArray] = useState([
     { date:'', time:'', touched: false },
   ]);
@@ -116,6 +117,7 @@ const handleSubmit = async (event) => {
     const response = await ApiReports.createReport(formData); // Ensure API can handle FormData
     console.log('Report created successfully:', response.data);
     alert('Form Submitted and response received');
+    navigate(`/reports`); // Navigate to the new report's details page
   } catch (error) {
     console.error('There was an error submitting the form', error);
     alert('Failed to submit the form');
