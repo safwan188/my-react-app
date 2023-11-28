@@ -19,7 +19,7 @@ const ExpertRequestDataTable = () => {
         const response = await apiExpertRequests.getAllExpertRequests();
         setExpertRequests(response.data.filter(expertRequest => expertRequest.status === 'pending'));
       } catch (error) {
-        console.error('There was an error fetching the expert requests:', error);
+        console.error('שגיאה', error);
       }
     };
 
@@ -36,6 +36,7 @@ const ExpertRequestDataTable = () => {
   console.log(expertRequestId.report);
   ApiReports.assigExpert(expertRequestId.report._id, data);
   alert("הבקשה אושרה בהצלחה");
+  window.location.reload();
 };
 
 
@@ -110,7 +111,7 @@ const filteredexpertRequests = expertRequests.filter((expertRequest) => {
         columnDisplayNames={columnDisplayNames}
         renderCell={renderCell}
         title="טבלת בקשות קבלנים"
-        buttonText={"   "}
+        buttonText={""}
       />
   );
 };
