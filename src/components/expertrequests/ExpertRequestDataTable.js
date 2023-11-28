@@ -35,6 +35,7 @@ const ExpertRequestDataTable = () => {
   console.log(data);
   console.log(expertRequestId.report);
   ApiReports.assigExpert(expertRequestId.report._id, data);
+  alert("הבקשה אושרה בהצלחה");
 };
 
 
