@@ -56,6 +56,7 @@
 .add-date-time-button2, .report-form-submit-button2 {
   background-color: #4c61af; /* A more vibrant shade for buttons */
   color: white;
+  width: 50%;
   padding: 12px 18px;
   border-radius: 6px;
   cursor: pointer;
@@ -114,4 +115,54 @@ textarea#description {
   .customer-property-container2 {
     flex-direction: column;
   }
+}/* Button Size Adjustment */
+.add-date-time-button2, .report-form-submit-button2 {
+  padding: 8px 14px; /* Smaller padding */
+  font-size: 0.9rem; /* Smaller font size */
+}
+
+/* Form Field Styling */
+input, select, textarea {
+  border: 1px solid #d4d4d4;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+/* Label Styling */
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design Adjustments */
+@media (max-width: 768px) {
+  .customer-property-container2 {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .form-section2 {
+    padding: 15px;
+  }
+}
+.form-section2 .date-time-container2 .date-time-row .report-form-group select{
+  width: 30%;
+}
+
+.form-section2 .date-time-container2 .date-time-row .report-form-group input[type="date"]{
+  width: 30%;
+}
+.image-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Space between images */
+  margin-top: 10px;
+}
+
+.image-preview {
+  max-width: 100px; /* Adjust size as necessary */
+  max-height: 100px;
+  object-fit: cover;
 }

@@ -160,3 +160,17 @@
     margin-bottom: 8px;
   }
 }
+.Report-layout .generic-table-container .table-header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* This will space out the children */
+  align-items: center; /* Aligns children vertically in the center */
+  width: 100%; /* Assuming you want to take the full width */
+}
+.Report-layout .generic-table-container .table-header-container h2 {
+  /* Assuming .child-left is the class for the left child */
+  flex-grow: 1; /* This will allow the left child to grow and push the right child to the end */
+  display: flex;
+  justify-content: center; /* Center content of left child */
+  align-items: center; /* Align vertically */
+}

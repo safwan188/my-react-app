@@ -29,6 +29,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        
         <Route path="/reports/:reportId" element={<ReportLayout><ReportDetails /> <Sidebar></Sidebar></ReportLayout>} />
         <Route path="/expert-requests" element={<ReportLayout><ExpertRequestDataTable /> <Sidebar></Sidebar></ReportLayout>} />
         <Route path="/reports/:reportId/assign-expert" element={<ReportLayout><AssignExpertForm /> <Sidebar></Sidebar></ReportLayout>} />
