@@ -102,7 +102,7 @@ const AssignExpertForm = () => {
     
     <img 
       key={index} 
-      src={`${imageUrlBase}${photo}`} 
+      src={`${photo}`} 
       alt={`Report Image ${index + 1}`} 
       style={{ width: '200px', height: '200px', objectFit: 'cover' }} // Fixed size with object-fit
     />

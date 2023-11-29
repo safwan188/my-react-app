@@ -29,10 +29,7 @@ axiosInstance.interceptors.request.use(
     const getAllExpertRequests = () => {
         return axiosInstance.get(API_URL);
     }
-    const assigExpert = (id) => {
-        return axiosInstance.put(`${API_URL}/${id}/assignexpert`);
-    };
+ 
     export default {    
         getAllExpertRequests,
-        assigExpert
     };

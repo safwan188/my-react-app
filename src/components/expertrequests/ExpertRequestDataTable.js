@@ -10,8 +10,6 @@ const ExpertRequestDataTable = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [expertRequests, setExpertRequests] = useState([]);
-  const [searchQuery, setSearchQuery] = useState(''); // Add this state for search query
-  const [selectedColumn, setSelectedColumn] = useState(''); // Default column to search by, can be 'name', 'tz', or 'phone'
 
   useEffect(() => {
     const fetchExpertRequests = async () => {
@@ -41,27 +39,6 @@ const ExpertRequestDataTable = () => {
 
 
 
-const filteredexpertRequests = expertRequests.filter((expertRequest) => {
-  let searchValue = '';
-  switch (selectedColumn) {
-    case 'report':
-      searchValue = expertRequest.report.customer.name.toLowerCase();
-      break;
-    case 'expert':
-      searchValue = expertRequest.expert.name.toLowerCase();
-      break;
-    case 'client':
-      searchValue = expertRequest.report.customer.name.toLowerCase();
-      break;
-    case 'date':
-    case 'index':
-      searchValue = expertRequest[selectedColumn]?.toString().toLowerCase() || '';
-      break;
-    default:
-      break;
-  }
-  return searchValue.includes(searchQuery);
-});
   // Define the columns for the Expert data
 
   // Handle navigation to the expert form
