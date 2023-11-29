@@ -139,10 +139,8 @@ const handleSubmit = async (event) => {
   };
   const handlePhotoUpload = (event) => {
     const uploadedPhotos = Array.from(event.target.files);
-    const photoURLs = uploadedPhotos.map(photo => URL.createObjectURL(photo));
-    setPhotos(photoURLs); // Store the blob URLs in state
+    setPhotos(uploadedPhotos); // Store the uploaded files in state
   };
-  
   const handlePropertyChange = (selectedOption) => {
     setSelectedPropertyId(selectedOption.value);
   };
@@ -175,7 +173,9 @@ const handleSubmit = async (event) => {
 
         <div className="form-section2">
           <div className="date-time-container2">
-         
+            <button type="button" onClick={addNewDateTime} className="add-date-time-button2">
+              הוסף עוד תאריך ושעה
+            </button>
             {dateTimeArray.map((dateTime, index) => (
               <DateTimeField
                 key={index}
@@ -186,9 +186,6 @@ const handleSubmit = async (event) => {
               />
             ))}
           </div>
-          <button type="button" onClick={addNewDateTime} className="add-date-time-button2">
-              הוסף עוד תאריך ושעה
-            </button>
         </div>
 
         <div className="form-section2">
@@ -208,21 +205,16 @@ const handleSubmit = async (event) => {
             onChange={(e) => setDescription(e.target.value)}
             placeholder="כתוב תיאור מלא של הבעיה"
           />
-        <div className="file-upload-container2">
-    <label htmlFor="photos">תמונות</label>
-    <input
-      type="file"
-      id="photos"
-      onChange={handlePhotoUpload}
-      multiple
-      accept="image/*"
-    />
-    <div className="image-preview-container">
-      {photos.map((photoURL, index) => (
-        <img key={index} src={photoURL} alt={`Preview ${index}`} className="image-preview" />
-      ))}
-    </div>
-  </div>
+          <div className="file-upload-container2">
+            <label htmlFor="photos">תמונות</label>
+            <input
+              type="file"
+              id="photos"
+              onChange={handlePhotoUpload}
+              multiple
+              accept="image/*"
+            />
+          </div>
         </div>
 
         <button type="submit" className="report-form-submit-button2">שמור</button>
