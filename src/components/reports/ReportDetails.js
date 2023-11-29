@@ -124,14 +124,14 @@ const ReportDetails = () => {
           <label> תמונות  לקוח</label>
         <div className="photos-container">
             {reportDetails.clientPhotos.map((photoSrc, index) => (
-                <img key={index} src={api+`${photoSrc.replace(/\\/g, '/')}`} alt={`Finding ${index + 1}`} />            ))}
+                <img key={index} src={`${photoSrc}`} alt={`Finding ${index + 1}`} />            ))}
         </div>
         </div>
         <div className="reportdetail-item findings-photos">
           <label> תמונות</label>
         <div className="photos-container">
             {reportDetails.findingsPhotos.map((photoSrc, index) => (
-                <img key={index} src={api+`${photoSrc.replace(/\\/g, '/')}`} alt={`Finding ${index + 1}`} />            ))}
+                <img key={index} src={`${photoSrc}`} alt={`Finding ${index + 1}`} />            ))}
         </div>
         </div>
       </div>
