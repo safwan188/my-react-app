@@ -52,7 +52,7 @@ const AssignExpertForm = () => {
   
   const handleAssignExpert = () => {
     if (!selectedExpert) {
-      alert("Please select an expert to assign");
+      alert("בחר טכנאי");
       return;
     }
     // Assuming your API expects a PUT request to update the report
@@ -60,13 +60,13 @@ const AssignExpertForm = () => {
       .then(response => {
         // You can set the report with the new expert data or fetch it again
         setReport(prevState => ({ ...prevState, expert: response.data.expert }));
-        alert("Expert assigned successfully");
+        alert("הטכנאי נבחר בהצלחה ");
         navigate(`/reports`);
 
       })
       .catch(error => {
         console.error("Error updating report with new expert:", error);
-        alert("Failed to assign expert");
+        alert("שגיאה בבחירת טכנאי");
       });
   };
   if (!report || experts.length === 0) {

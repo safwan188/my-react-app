@@ -44,7 +44,11 @@ const ExpertFormCard = () => {
 
     ApiExpert.createExpert({ name, education: filteredEducation, experience: filteredExperience, tz, phone })
       .then(response => {
-        alert('הקבלן נוסף בהצלחה');
+        if (response.status !== 201) {
+          alert('הקבלן לא נוסף, נסה שנית');
+          return;
+        }
+        alert('הקבלן נוסף בהצלחה'+' שם משתתמש  : '+' '+ tz+' סיסמא: '+' '+ tz + phone.slice(-3)) ;
         navigate('/experts');
       })
       .catch(error => {

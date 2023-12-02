@@ -86,12 +86,12 @@ const handleSubmit = async (event) => {
   const isDateTimeComplete = dateTimeArray.every(dateTime => dateTime.touched);
 
   if (!isDateTimeComplete) {
-    alert('Please confirm or change all date and time fields before submitting the report.');
+    alert('השלם את כל התאריכים והשעות');
     return;
   }
 
   if (!selectedCustomerId || !selectedPropertyId) {
-    alert('Please select both a customer and a property before submitting the report.');
+    alert('בחר לקוח ונכס לפני שליחת הדוח');
     return;
   }
 
@@ -116,11 +116,11 @@ const handleSubmit = async (event) => {
   try {
     const response = await ApiReports.createReport(formData); // Ensure API can handle FormData
     console.log('Report created successfully:', response.data);
-    alert('Form Submitted and response received');
+    alert('דוח נשמר בהצלחה');
     navigate(`/reports`); // Navigate to the new report's details page
   } catch (error) {
-    console.error('There was an error submitting the form', error);
-    alert('Failed to submit the form');
+    console.error('שגיאה', error);
+    alert('שגיאה הדוח לא נשמר');
   }
 };
 
@@ -156,7 +156,7 @@ const handleSubmit = async (event) => {
               value={selectedCustomerId}
               onChange={handleCustomerChange}
               options={customerOptions}
-              placeholder="Select a customer"
+              placeholder="בחר לקוח"
             />
           </div>
           <div className="form-section2">
@@ -165,7 +165,7 @@ const handleSubmit = async (event) => {
               value={selectedPropertyId}
               onChange={handlePropertyChange}
               options={propertyOptions}
-              placeholder="Select a property"
+              placeholder="בחר נכס ללקוח"
               isDisabled={!selectedCustomerId}
             />
           </div>
@@ -205,16 +205,16 @@ const handleSubmit = async (event) => {
             onChange={(e) => setDescription(e.target.value)}
             placeholder="כתוב תיאור מלא של הבעיה"
           />
-          <div className="file-upload-container2">
-            <label htmlFor="photos">תמונות</label>
-            <input
-              type="file"
-              id="photos"
-              onChange={handlePhotoUpload}
-              multiple
-              accept="image/*"
-            />
-          </div>
+       <div className="file-upload-container2">
+          <label htmlFor="photos">  העלאת תמונות  </label>
+          <input
+            type="file"
+            id="photos"
+            onChange={handlePhotoUpload}
+            multiple
+            accept="image/*"
+          />
+        </div>
         </div>
 
         <button type="submit" className="report-form-submit-button2">שמור</button>
